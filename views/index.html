@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Design Pattern Web</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/vertical-navbar-content.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/prism.css" />
+</head>
+
+<body>
+    <div class="content">
+        <div class="horizontal-navbar">
+            <nav>
+                <ul class="horizontal-navbar-content" id="list-horizontal-navbar">
+                    <li><a id="index1" href="home" onclick="highlightItemHorizontal(this)">Home</a></li>
+                    <li><a href="creationals" onclick="highlightItemHorizontal(this)">Creational Design Patterns</a></li>
+                    <li><a href="structurals" onclick="highlightItemHorizontal(this)">Structural Design Patterns</a></li>
+                    <li><a href="behaviorals" onclick="highlightItemHorizontal(this)">Behavioral Design Patterns</a></li>
+                    <li><a href="about" onclick="highlightItemHorizontal(this)">About</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="horizontal-content">
+            <main>
+                <section id="content-level1"></section>
+            </main>
+        </div>
+    </div>
+
+    <script src="/js/index.js" defer></script>
+    <script src="/js/vertical-navbar-content.js" defer></script>
+    <script src="/js/prism.js"></script>
+    
+      
+
+    <!-- CREATIONALS -->
+    <script src="/js/creationals/factory-method.js" defer></script>
+    <script src="/js/creationals/abstract-factory.js" defer></script>
+    <script src="/js/creationals/builder.js" defer></script>
+    <script src="/js/creationals/prototype.js" defer></script>
+    <script src="/js/creationals/singleton.js" defer></script>
+
+    <!-- STRUCTURALS -->
+    <script src="/js/structurals/adapter.js" defer></script>
+    <script src="/js/structurals/bridge.js" defer></script>
+    <script src="/js/structurals/composite.js" defer></script>
+    <script src="/js/structurals/decorator.js" defer></script>
+    <script src="/js/structurals/facade.js" defer></script>
+    <script src="/js/structurals/flyweight.js" defer></script>
+    <script src="/js/structurals/proxy.js" defer></script>
+
+    <!-- BEHAVIORALS -->
+    <script src="/js/behaviorals/chain-of-responsibility.js" defer></script>
+    <script src="/js/behaviorals/command.js" defer></script>
+    <script src="/js/behaviorals/iterator.js" defer></script>
+    <script src="/js/behaviorals/mediator.js" defer></script>
+    <script src="/js/behaviorals/memento.js" defer></script>
+    <script src="/js/behaviorals/observer.js" defer></script>
+    <script src="/js/behaviorals/state.js" defer></script>
+    <script src="/js/behaviorals/strategy.js" defer></script>
+    <script src="/js/behaviorals/template-method.js" defer></script>
+    <script src="/js/behaviorals/visitor.js" defer></script>
+</body>
+
+</html>

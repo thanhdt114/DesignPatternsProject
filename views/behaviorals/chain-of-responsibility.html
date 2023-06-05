@@ -1,0 +1,114 @@
+<section id="chain-of-responsibility">
+    <div class="child-content">
+        <h2>Chain of Responsibility</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Chain of Responsibility trong design pattern là một mẫu hành vi, cho phép bạn xây
+            dựng một chuỗi các đối tượng xử lý (handlers) và cho phép mỗi đối tượng xử lý quyết định
+            xem liệu nó sẽ xử lý một yêu cầu nhất định hay chuyển nó cho đối tượng xử lý tiếp theo
+            trong chuỗi.
+            <br /><br />
+            Mục tiêu của mẫu Chain of Responsibility là giảm sự ràng buộc giữa người gửi yêu cầu và
+            người nhận yêu cầu bằng cách cho phép nhiều đối tượng xử lý liên kết với nhau. Mỗi đối
+            tượng xử lý có thể xử lý yêu cầu hoặc chuyển nó cho đối tượng xử lý tiếp theo trong
+            chuỗi. Điều này cho phép bạn linh hoạt thêm hoặc bỏ qua các bước xử lý, tạo ra một chuỗi
+            xử lý linh hoạt và dễ dàng mở rộng.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img
+            src="creationals/image/class-diagram-chain-of-responsibility"
+            alt="class-diagram-chain-of-responsibility"
+        />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Handler
+    class Handler {
+        constructor() {
+            this.nextHandler = null;
+        }
+    
+        setNextHandler(handler) {
+            this.nextHandler = handler;
+        }
+    
+        handleRequest(request) {
+            throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Concrete Handlers
+    class ConcreteHandler1 extends Handler {
+        handleRequest(request) {
+            if (request === "A") {
+                console.log("Handled by ConcreteHandler1");
+            } else if (this.nextHandler) {
+                this.nextHandler.handleRequest(request);
+            } else {
+                console.log("No handler can process the request");
+            }
+        }
+    }
+    
+    class ConcreteHandler2 extends Handler {
+        handleRequest(request) {
+            if (request === "B") {
+                console.log("Handled by ConcreteHandler2");
+            } else if (this.nextHandler) {
+                this.nextHandler.handleRequest(request);
+            } else {
+                console.log("No handler can process the request");
+            }
+        }
+    }
+    
+    // Usage
+    const handler1 = new ConcreteHandler1();
+    const handler2 = new ConcreteHandler2();
+    handler1.setNextHandler(handler2);
+    
+    handler1.handleRequest("A");
+    // Output: Handled by ConcreteHandler1
+    
+    handler1.handleRequest("B");
+    // Output: Handled by ConcreteHandler2
+    
+    handler1.handleRequest("C");
+    // Output: No handler can process the request                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có hai lớp ConcreteHandler1 và ConcreteHandler2 đại diện cho
+            các đối tượng xử lý cụ thể. Mỗi đối tượng xử lý có một phương thức handleRequest để xử
+            lý yêu cầu được gửi đến nó. Nếu đối tượng có thể xử lý yêu cầu, nó sẽ thực hiện hành
+            động tương ứng. Nếu không, nó sẽ chuyển yêu cầu cho đối tượng xử lý tiếp theo trong
+            chuỗi (nếu có).
+            <br /><br />
+            Chúng ta cũng có lớp Handler trừu tượng đại diện cho các đối tượng xử lý trong chuỗi.
+            Lớp này có một trường nextHandler để liên kết các đối tượng xử lý với nhau và một phương
+            thức setNextHandler để thiết lập đối tượng xử lý tiếp theo trong chuỗi. Phương thức
+            handleRequest được cài đặt trừu tượng và phải được triển khai bởi các lớp con.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo ra một chuỗi xử lý bằng cách thiết lập đối tượng
+            ConcreteHandler2 là đối tượng xử lý tiếp theo của ConcreteHandler1. Sau đó, chúng ta gửi
+            các yêu cầu đến đối tượng ConcreteHandler1 và nó sẽ xử lý yêu cầu hoặc chuyển nó cho đối
+            tượng xử lý tiếp theo trong chuỗi. Nếu không có đối tượng nào có thể xử lý yêu cầu,
+            thông báo tương ứng sẽ được in ra màn hình.
+        </p>
+
+        <div class="apply">
+            <button onclick="processChainOfResponsibility()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result"></div>
+    </div>
+</section>

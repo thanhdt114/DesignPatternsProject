@@ -1,0 +1,113 @@
+<section id="command">
+    <div class="child-content">
+        <h2>Command</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Command trong design pattern là một mẫu hành vi, cho phép đóng gói yêu cầu dưới dạng
+            một đối tượng độc lập, giúp tách biệt người gửi yêu cầu (client) và người thực thi yêu
+            cầu (receiver). Nó cho phép bạn thực hiện các hoạt động như hoàn tác, lịch trình hành
+            động hoặc ghi lại các hoạt động của hệ thống.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-command" alt="class-diagram-command" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Receiver
+    class Light {
+        turnOn() {
+            console.log("Light is on");
+        }
+    
+        turnOff() {
+            console.log("Light is off");
+        }
+    }
+    
+    // Command
+    class Command {
+        constructor(receiver) {
+            this.receiver = receiver;
+        }
+    
+        execute() {
+            throw new Error("This method should be overridden");
+        }
+    }
+    
+    // Concrete Commands
+    class TurnOnCommand extends Command {
+        execute() {
+            this.receiver.turnOn();
+        }
+    }
+    
+    class TurnOffCommand extends Command {
+        execute() {
+            this.receiver.turnOff();
+        }
+    }
+    
+    // Invoker
+    class RemoteControl {
+        setCommand(command) {
+            this.command = command;
+        }
+    
+        executeCommand() {
+            this.command.execute();
+        }
+    }
+    
+    // Usage
+    const light = new Light();
+    
+    const turnOnCommand = new TurnOnCommand(light);
+    const turnOffCommand = new TurnOffCommand(light);
+    
+    const remoteControl = new RemoteControl();
+    
+    remoteControl.setCommand(turnOnCommand);
+    remoteControl.executeCommand();
+    // Output: Light is on
+    
+    remoteControl.setCommand(turnOffCommand);
+    remoteControl.executeCommand();
+    // Output: Light is off                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có lớp Receiver (Light) đại diện cho đối tượng thực thi yêu
+            cầu. Các lớp Command (TurnOnCommand và TurnOffCommand) đại diện cho các yêu cầu cụ thể
+            được đóng gói thành đối tượng. Mỗi lớp Command có một phương thức execute để thực hiện
+            yêu cầu tương ứng lên Receiver.
+            <br /><br />
+            Lớp Invoker (RemoteControl) là người gửi yêu cầu và có trách nhiệm thiết lập và thực thi
+            các lệnh. Nó chứa một trường command để lưu trữ lệnh được thiết lập. Phương thức
+            setCommand được sử dụng để thiết lập lệnh và phương thức executeCommand được sử dụng để
+            thực thi lệnh hiện tại.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo một đối tượng Light là Receiver và tạo các đối tượng lệnh
+            (TurnOnCommand và TurnOffCommand) đóng gói các yêu cầu tương ứng. Sau đó, chúng ta thiết
+            lập lệnh cho RemoteControl và thực thi lệnh bằng cách gọi phương thức executeCommand.
+            Khi mỗi lệnh được thực thi, thông báo tương ứng sẽ được in ra màn hình.
+        </p>
+
+        <div class="apply">
+            <button onclick="processCommand()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

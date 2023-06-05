@@ -1,0 +1,76 @@
+<section id="prototype">
+    <div class="child-content">
+        <h2>Prototype</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Prototype là một mẫu thiết kế thuộc nhóm tạo ra các đối tượng mới bằng cách sao chép
+            các đối tượng hiện có, thay vì tạo mới bằng cách sử dụng constructor. Mục tiêu của mẫu
+            Prototype là tạo ra các đối tượng một cách linh hoạt và hiệu quả, đồng thời giảm tải cho
+            việc tạo mới đối tượng từ đầu.
+            <br /><br />
+            Trong Node.js, chúng ta có thể triển khai mẫu Prototype bằng cách sử dụng tính năng sao
+            chép đối tượng có sẵn trong JavaScript. Dưới đây là một ví dụ minh họa:
+        </p>
+
+        <h3>Class diagram</h3>
+        <img
+            src="creationals/image/class-diagram-prototype"
+            alt="class-diagram-prototype"
+        />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Prototype object
+    const carPrototype = {
+        name: "Default Car",
+        drive() {
+            console.log(`Driving ${this.name}`);
+        },
+        clone() {
+            const clonedCar = Object.create(this);
+            return clonedCar;
+        },
+    };
+    
+    // Concrete object
+    const sedanCar = carPrototype.clone();
+    sedanCar.name = "Sedan Car";
+    sedanCar.drive(); // Output: Driving Sedan Car
+    
+    // Concrete object
+    const suvCar = carPrototype.clone();
+    suvCar.name = "SUV Car";
+    suvCar.drive(); // Output: Driving SUV Car
+    
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta định nghĩa một đối tượng nguyên mẫu (carPrototype) với các
+            thuộc tính và phương thức chung. Sau đó, chúng ta sử dụng phương thức clone để sao chép
+            đối tượng nguyên mẫu và tạo ra các đối tượng cụ thể (sedanCar và suvCar). Mỗi đối tượng
+            cụ thể có thể được tùy chỉnh thuộc tính riêng của nó (như tên) và gọi phương thức drive
+            để thực hiện hành động tương ứng.
+            <br /><br />
+            Mẫu Prototype giúp chúng ta tạo ra các đối tượng mới một cách linh hoạt và hiệu quả bằng
+            cách sử dụng các đối tượng đã tồn tại làm nguyên mẫu, thay vì tạo mới từ đầu. Điều này
+            giúp giảm tải và tăng hiệu suất trong quá trình tạo mới đối tượng.
+        </p>
+
+        <div class="apply">
+            <input class="w3-input w3-border w3-round" type="text" id="prototype-input" />
+            <button onclick="processPrototype()">Drive</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

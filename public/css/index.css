@@ -1,0 +1,77 @@
+:root {
+    --primary-color: rgb(255, 0, 0);
+    --secondary-color: rgb(0, 255, 0);
+    --tertiary-color: rgb(0, 0, 255);
+    --lightcyan-color: rgb(224,255,255);
+    --cyan-color: rgb(0,255,255);
+    --aqua-color: rgb(0,255,255);
+    --aquamarine-color: rgb(127,255,212);
+    --mediumaquamarine-color: rgb(102,205,170);
+    --paleturquoise-color: rgb(175,238,238);
+    --turquoise-color: rgb(64,224,208);
+    --mediumturquoise-color: rgb(72,209,204);
+    --dark-turquoise-color: rgb(0,206,209);
+    --lightseagreen-color: rgb(32,178,170);
+    --cadet-blue-color: rgb(95,158,160);
+    --darkcyan-color: rgb(0,139,139);
+    --teal-color: rgb(0,128,128);
+}
+  
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    height: 100vh;
+    background-color: var(--darkcyan-color);
+}
+
+.horizontal-navbar {
+    background-color: var(--lightcyan-color);
+    display: flex;
+    justify-content: center;
+}
+
+.horizontal-navbar-content {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--lightcyan-color);
+}
+
+.horizontal-navbar-content li {
+    float: left;
+}
+
+.horizontal-navbar-content li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.horizontal-navbar-content li a:hover:not(.active) {
+    background-color: var(--paleturquoise-color);
+}
+
+.horizontal-navbar-content li a.active {
+    color: white;
+    background-color: #04AA6D;
+}
+
+.highlight-horizontal {
+    color: white;
+    background-color: var(--turquoise-color);
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-top: 7px;
+}
+
+.title h1 {
+    margin: 0;
+}

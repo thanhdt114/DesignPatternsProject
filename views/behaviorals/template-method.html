@@ -1,0 +1,123 @@
+<section id="template-method">
+    <div class="child-content">
+        <h2>Template Method</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Template Method trong design pattern là một mẫu hành vi, nó cho phép bạn định nghĩa
+            một bản mẫu (template) cho một thuật toán và cho phép các bước cụ thể của thuật toán
+            được triển khai bởi các lớp con.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img
+            src="creationals/image/class-diagram-template-method"
+            alt="class-diagram-template-method"
+        />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Abstract Class
+    class AbstractClass {
+        templateMethod() {
+            this.stepOne();
+            this.stepTwo();
+            this.stepThree();
+        }
+    
+        stepOne() {
+            throw new Error("This method should be overridden.");
+        }
+    
+        stepTwo() {
+            throw new Error("This method should be overridden.");
+        }
+    
+        stepThree() {
+            throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Concrete Classes
+    class ConcreteClassA extends AbstractClass {
+        stepOne() {
+            console.log("Step one for ConcreteClassA.");
+        }
+    
+        stepTwo() {
+            console.log("Step two for ConcreteClassA.");
+        }
+    
+        stepThree() {
+            console.log("Step three for ConcreteClassA.");
+        }
+    }
+    
+    class ConcreteClassB extends AbstractClass {
+        stepOne() {
+            console.log("Step one for ConcreteClassB.");
+        }
+    
+        stepTwo() {
+            console.log("Step two for ConcreteClassB.");
+        }
+    
+        stepThree() {
+            console.log("Step three for ConcreteClassB.");
+        }
+    }
+    
+    // Usage
+    const concreteClassA = new ConcreteClassA();
+    concreteClassA.templateMethod();
+    /*
+        Output:
+        Step one for ConcreteClassA.
+        Step two for ConcreteClassA.
+        Step three for ConcreteClassA.
+        */
+    
+    const concreteClassB = new ConcreteClassB();
+    concreteClassB.templateMethod();
+    /*
+        Output:
+        Step one for ConcreteClassB.
+        Step two for ConcreteClassB.
+        Step three for ConcreteClassB.
+        */                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có lớp AbstractClass đại diện cho một lớp trừu tượng có chứa
+            phương thức templateMethod là phương thức mẫu. Template method gọi các bước cụ thể
+            (stepOne, stepTwo, stepThree) theo một trình tự nhất định.
+            <br /><br />
+            Các lớp ConcreteClassA và ConcreteClassB là các lớp cụ thể triển khai các bước cụ thể
+            của thuật toán. Chúng ghi đè các phương thức stepOne, stepTwo, stepThree để triển khai
+            các bước tương ứng cho mỗi lớp.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo các đối tượng của lớp ConcreteClassA và ConcreteClassB,
+            và gọi phương thức templateMethod trên mỗi đối tượng. Kết quả được in ra màn hình tương
+            ứng với từng lớp.
+            <br /><br />
+            Mẫu Template Method cho phép chúng ta xác định một bản mẫu chung cho một thuật toán và
+            cho phép các bước cụ thể của thuật toán được triển khai bởi các lớp con. Điều này giúp
+            giảm sự trùng lặp mã và tăng tính linh hoạt trong triển khai thuật toán khác nhau.
+        </p>
+
+        <div class="apply">
+            <button onclick="processTemplateMethod()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

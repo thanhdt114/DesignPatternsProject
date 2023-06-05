@@ -1,0 +1,130 @@
+<section id="composite">
+    <div class="child-content">
+        <h2>Composite</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Composite trong design pattern là một mẫu thiết kế cấu trúc cho phép chúng ta xây
+            dựng các cấu trúc phân cấp phức tạp bằng cách sử dụng cùng một cách thức xử lý cho các
+            đối tượng đơn lẻ và các đối tượng thành phần. Mẫu Composite cho phép chúng ta xử lý các
+            đối tượng cá nhân và các cấu trúc thành phần của chúng một cách đồng nhất.
+            <br /><br />
+            Một ví dụ phổ biến của mẫu Composite là khi chúng ta có một cây thành phần, trong đó mỗi
+            nút của cây có thể là một đối tượng đơn lẻ hoặc một cây con. Mẫu Composite cho phép
+            chúng ta xử lý cả cây và các nút đơn lẻ trong cây theo cùng một cách.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-composite" alt="class-diagram-composite" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Giao diện chung cho tất cả các thành phần trong cây
+    class Component {
+        constructor(name) {
+            this.name = name;
+        }
+    
+        // Phương thức mặc định không làm gì
+        // Được ghi đè bởi các lớp con nếu cần
+        operation() {}
+    
+        // Thêm một thành phần con vào cây
+        add(component) {}
+    
+        // Xóa một thành phần con khỏi cây
+        remove(component) {}
+    
+        // Trả về tất cả các thành phần con trong cây
+        getChildren() {}
+    }
+    
+    // Lớp đơn lẻ không có thành phần con
+    class Leaf extends Component {
+        operation() {
+            console.log(`Leaf ${this.name} is performing operation.`);
+        }
+    }
+    
+    // Lớp thành phần chứa các thành phần con
+    class Composite extends Component {
+        constructor(name) {
+            super(name);
+            this.children = [];
+        }
+    
+        add(component) {
+            this.children.push(component);
+        }
+    
+        remove(component) {
+            const index = this.children.indexOf(component);
+            if (index !== -1) {
+                this.children.splice(index, 1);
+            }
+        }
+    
+        getChildren() {
+            return this.children;
+        }
+    
+        operation() {
+            console.log(`Composite ${this.name} is performing operation.`);
+            for (const child of this.children) {
+                child.operation();
+            }
+        }
+    }
+    
+    // Sử dụng
+    const root = new Composite("root");
+    const branch1 = new Composite("branch1");
+    const branch2 = new Composite("branch2");
+    const leaf1 = new Leaf("leaf1");
+    const leaf2 = new Leaf("leaf2");
+    const leaf3 = new Leaf("leaf3");
+    
+    root.add(branch1);
+    root.add(branch2);
+    branch1.add(leaf1);
+    branch2.add(leaf2);
+    branch2.add(leaf3);
+    
+    root.operation();
+    // Output:
+    // Composite root is performing operation.
+    // Composite branch1 is performing operation.
+    // Leaf leaf1 is performing operation.
+    // Composite branch2 is performing operation.
+    // Leaf leaf2 is performing operation.
+    // Leaf leaf3 is performing operation.                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có các lớp Component, Leaf và Composite. Lớp Component là lớp
+            chung cho tất cả các thành phần trong cây và có các phương thức chung. Lớp Leaf là lớp
+            đơn lẻ không có thành phần con. Lớp Composite là lớp chứa các thành phần con và thực
+            hiện các phương thức liên quan đến quản lý các thành phần con.
+            <br /><br />
+            Chúng ta sử dụng các lớp này để xây dựng một cây thành phần gồm các nút và các cây con.
+            Khi chúng ta gọi phương thức operation trên nút gốc của cây (root), phương thức này sẽ
+            được lan truyền xuống các nút con và thực hiện phương thức operation tương ứng trên từng
+            nút.
+        </p>
+
+        <div class="apply">
+            <button onclick="processComposite()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

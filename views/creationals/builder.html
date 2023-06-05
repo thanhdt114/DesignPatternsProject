@@ -1,0 +1,113 @@
+<section id="builder">
+    <div class="child-content">
+        <h2>Builder</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Builder (Builder pattern) là một mẫu thiết kế thuộc nhóm Creational 
+            Design Pattern. Mẫu này được sử dụng để tách quá trình xây dựng một đối tượng 
+            phức tạp thành các bước xây dựng riêng biệt, giúp cho việc xây dựng đối tượng 
+            trở nên linh hoạt và dễ dàng hơn.
+            <br><br>
+            Trong mẫu Builder, chúng ta có một Builder class có nhiệm vụ xây dựng đối tượng phức tạp 
+            bước từng bước. Builder class cung cấp các phương thức để thiết lập các thuộc tính của đối tượng 
+            và cuối cùng trả về đối tượng hoàn chỉnh.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-builder" alt="class-diagram-builder">
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    class House {
+        constructor() {
+            this.foundation = '';
+            this.structure = '';
+            this.roof = '';
+        }
+    
+        setFoundation(foundation) {
+            this.foundation = foundation;
+        }
+    
+        setStructure(structure) {
+            this.structure = structure;
+        }
+    
+        setRoof(roof) {
+            this.roof = roof;
+        }
+    
+        getInfo() {
+            return `House with ${this.foundation}, ${this.structure}, and ${this.roof}`;
+        }
+    }
+    
+    class HouseBuilder {
+        constructor() {
+            this.house = new House();
+        }
+    
+        buildFoundation(foundation) {
+            this.house.setFoundation(foundation);
+            return this;
+        }
+    
+        buildStructure(structure) {
+            this.house.setStructure(structure);
+            return this;
+        }
+    
+        buildRoof(roof) {
+            this.house.setRoof(roof);
+            return this;
+        }
+    
+        getHouse() {
+            return this.house;
+        }
+    }
+    
+    // Sử dụng Builder để xây dựng đối tượng House
+    const builder = new HouseBuilder();
+    const house = builder
+        .buildFoundation('Concrete')
+        .buildStructure('Brick')
+        .buildRoof('Tile')
+        .getHouse();
+    
+    console.log(house.getInfo()); // Output: House with Concrete, Brick, and Tile    
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có lớp House đại diện cho một đối tượng phức tạp cần được 
+            xây dựng. Lớp HouseBuilder là Builder class chịu trách nhiệm xây dựng đối tượng House 
+            bằng cách cung cấp các phương thức để thiết lập từng phần riêng biệt của đối tượng. 
+            Cuối cùng, chúng ta có thể sử dụng Builder để tạo ra một đối tượng House hoàn chỉnh 
+            với các thuộc tính đã được xác định.
+            <br><br>
+            Mẫu Builder giúp tách rời quá trình xây dựng đối tượng khỏi quá trình tạo đối tượng, 
+            cho phép chúng ta tạo ra nhiều biến thể của đối tượng sử dụng cùng một quy trình 
+            xây dựng. Điều này giúp làm giảm sự phức tạp và tăng tính linh hoạt của việc xây dựng 
+            đối tượng phức tạp.
+        </p>
+
+        <div class="apply">
+            Foundation <input class="w3-input w3-border w3-round" type="text" id="builder-input-foundation"> <br>
+            Structure <input class="w3-input w3-border w3-round" type="text" id="builder-input-structure"> <br>
+            Roof <input class="w3-input w3-border w3-round" type="text" id="builder-input-roof"> <br>
+            <button onclick="processBuilder()">Build</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+             
+        </div>
+    </div>
+</section>

@@ -1,0 +1,104 @@
+<section id="factory-method">
+    <div class="child-content">
+        <h2>Factory Method</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Factory Method là một mẫu thiết kế thuộc nhóm Creational Patterns trong Design
+            Pattern. Mẫu này cho phép chúng ta tạo đối tượng mà không cần chỉ định trực tiếp lớp cụ
+            thể của đối tượng đó. Thay vào đó, chúng ta sử dụng một phương thức factory để tạo ra
+            các đối tượng.
+            <br /><br />
+            Với Factory Method, chúng ta định nghĩa một lớp giao diện hoặc một lớp cơ sở trừu tượng
+            chứa phương thức factory method. Lớp cơ sở này định nghĩa giao diện chung cho việc tạo
+            đối tượng, trong khi các lớp con cụ thể triển khai phương thức factory method để tạo ra
+            các đối tượng cụ thể.
+            <br /><br />
+            Mục đích chính của Factory Method là tách biệt quá trình tạo đối tượng khỏi việc sử dụng
+            nó, giúp mã nguồn dễ dàng mở rộng và bảo trì. Nó cung cấp một cách thức để tạo đối tượng
+            mà không cần biết chi tiết về lớp cụ thể của đối tượng đó.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img
+            src="creationals/image/class-diagram-factory-method"
+            alt="class-diagram-factory-method"
+        />
+
+        <h3>Code ví dụ</h3>
+
+        <pre class="code-container">
+            <code>
+    // Định nghĩa một lớp Shape gồm phương thức draw
+    class Shape {
+        draw() {
+            throw new Error("Phương thức này phải được ghi đè.");
+        }
+    }
+
+    // Triển khai các lớp con cụ thể của Shape
+    class Circle extends Shape {
+        draw() {
+            console.log("Vẽ hình tròn");
+        }
+    }
+
+    class Square extends Shape {
+        draw() {
+            console.log("Vẽ hình vuông");
+        }
+    }
+
+    // Factory Method để tạo đối tượng Shape dựa trên type
+    function createShape(type) {
+        switch (type) {
+            case "circle":
+                return new Circle();
+            case "square":
+                return new Square();
+            default:
+                throw new Error("Loại hình không được hỗ trợ.");
+        }
+    }
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong đoạn code trên, ta có một mẫu Factory Method được sử dụng để tạo đối tượng Shape
+            dựa trên loại (type) được chỉ định.
+            <br /><br />
+            <li>
+                Lớp Shape là một lớp trừu tượng có phương thức draw, mà các lớp con sẽ phải ghi đè.
+            </li>
+            <li>
+                Các lớp con Circle và Square triển khai phương thức draw để vẽ hình tròn và hình
+                vuông, tương ứng.
+            </li>
+            <li>
+                Hàm createShape là Factory Method, nó nhận một tham số type để xác định loại hình
+                cần tạo. Dựa trên giá trị type, hàm này sẽ trả về một đối tượng tương ứng: Circle
+                cho loại "circle", Square cho loại "square". Nếu type không khớp với bất kỳ loại
+                hình nào, một ngoại lệ sẽ được ném ra.
+            </li>
+            <br /><br />
+            Mẫu Factory Method cho phép chúng ta tách biệt quá trình tạo đối tượng khỏi lớp con cụ
+            thể, cho phép mở rộng hệ thống các lớp con mới mà không cần thay đổi mã nguồn của lớp
+            Factory Method. Nó cung cấp một cách tiêu chuẩn hóa để tạo các đối tượng dựa trên các
+            tham số đầu vào xác định.
+        </p>
+
+        <div class="apply">
+            <input class="w3-input w3-border w3-round" type="text" id="factory-input" />
+            <button onclick="drawShape()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            <img id="draw-shape" src="" alt="Draw Shape" />
+        </div>
+    </div>
+</section>

@@ -1,0 +1,130 @@
+<section id="abstract-factory">
+    <div class="child-content">
+        <h2>Abstract Factory</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Abstract Factory (Factory Method mở rộng) là một mẫu thiết kế trong kỹ thuật phần
+            mềm, thuộc nhóm mẫu Creational Design Pattern. Mẫu này cung cấp một giao diện để tạo ra
+            các đối tượng liên quan hoặc phụ thuộc lẫn nhau mà không cần chỉ định cụ thể lớp cụ thể
+            của đối tượng.
+            <br /><br />
+            Abstract Factory tách biệt việc tạo ra đối tượng khỏi việc sử dụng đối tượng, cho phép
+            bạn tạo ra các đối tượng có liên quan nhưng không cần biết rõ lớp cụ thể của chúng. Điều
+            này cho phép bạn thay đổi các lớp cụ thể được tạo mà không ảnh hưởng đến mã sử dụng.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img
+            src="creationals/image/class-diagram-abstract-factory"
+            alt="class-diagram-abstract-factory"
+        />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Abstract Factory
+    class AbstractCarFactory {
+        createCar() {
+        throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Concrete Factory
+    class SedanCarFactory extends AbstractCarFactory {
+        createCar() {
+        return new SedanCar();
+        }
+    }
+    
+    class SuvCarFactory extends AbstractCarFactory {
+        createCar() {
+        return new SuvCar();
+        }
+    }
+    
+    // Abstract Product
+    class Car {
+        drive() {
+        throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Concrete Products
+    class SedanCar extends Car {
+        drive() {
+        console.log("Driving a Sedan car.");
+        }
+    }
+    
+    class SuvCar extends Car {
+        drive() {
+        console.log("Driving an SUV car.");
+        }
+    }
+    
+    // Client
+    function client(factory) {
+        const car = factory.createCar();
+        car.drive();
+    }
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong đoạn code trên, ta có mẫu Abstract Factory được sử dụng để tạo đối tượng xe (Car)
+            và các nhà máy tạo xe (CarFactory) tương ứng.
+            <br /><br />
+            <li>
+                Lớp AbstractCarFactory là một lớp trừu tượng định nghĩa phương thức createCar(), mà
+                các lớp con sẽ phải ghi đè để tạo ra các đối tượng xe.
+            </li>
+
+            <li>
+                Các lớp con SedanCarFactory và SuvCarFactory triển khai phương thức createCar(), và
+                mỗi lớp trả về một đối tượng xe cụ thể tương ứng là SedanCar và SuvCar.
+            </li>
+
+            <li>
+                Lớp Car là một lớp trừu tượng định nghĩa phương thức drive(), mà các lớp con sẽ phải
+                ghi đè để xử lý cách lái xe cụ thể.
+            </li>
+
+            <li>
+                Các lớp con SedanCar và SuvCar triển khai phương thức drive() để hiển thị thông điệp
+                "Driving a Sedan car." và "Driving an SUV car." tương ứng.
+            </li>
+
+            <br /><br />
+            Mẫu Abstract Factory cho phép chúng ta tạo các họ đối tượng liên quan với nhau mà không
+            cần xác định cụ thể các lớp cụ thể của chúng. Trong ví dụ này, AbstractCarFactory là nhà
+            máy trừu tượng tạo ra các đối tượng xe (Car). Các lớp con của AbstractCarFactory như
+            SedanCarFactory và SuvCarFactory định nghĩa cách tạo các đối tượng xe cụ thể. Client sử
+            dụng factory để tạo đối tượng xe cần thiết và gọi phương thức lái (drive()) trên đối
+            tượng được tạo.
+        </p>
+
+        <div class="apply">
+            <div class="abstract-button">
+                Client(
+                <button onclick="sedanProcess()">Sedan Car</button>
+                )
+            </div>
+            <div class="abstract-button">
+                Client(
+                <button onclick="suvProcess()">Suv Car</button>
+                )
+            </div>
+            <div class="abstract-button">
+                <button onclick="clearState()">Clear State</button>
+            </div>
+            
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result"></div>
+    </div>
+</section>

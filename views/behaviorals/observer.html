@@ -1,0 +1,101 @@
+<section id="observer">
+    <div class="child-content">
+        <h2>Observer</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Observer trong design pattern là một mẫu hành vi, nó cho phép các đối tượng theo dõi
+            và tự động cập nhật thông tin từ một đối tượng chủ đề khi có sự thay đổi. Mẫu này xây
+            dựng một mô hình phát tán sự kiện, nơi các đối tượng quan sát (observers) đăng ký để
+            nhận thông báo và cập nhật từ đối tượng chủ đề (subject).
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-observer" alt="class-diagram-observer" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Subject
+    class NewsPublisher {
+        constructor() {
+            this.subscribers = [];
+        }
+    
+        subscribe(observer) {
+            this.subscribers.push(observer);
+        }
+    
+        unsubscribe(observer) {
+            this.subscribers = this.subscribers.filter((subscriber) => subscriber !== observer);
+        }
+    
+        notify(message) {
+            this.subscribers.forEach((observer) => observer.update(message));
+        }
+    }
+    
+    // Observer
+    class NewsSubscriber {
+        constructor(name) {
+            this.name = name;
+        }
+    
+        update(message) {
+            console.log(`${this.name} received news: ${message}`);
+        }
+    }
+    
+    // Usage
+    const publisher = new NewsPublisher();
+    
+    const subscriber1 = new NewsSubscriber("Subscriber 1");
+    const subscriber2 = new NewsSubscriber("Subscriber 2");
+    const subscriber3 = new NewsSubscriber("Subscriber 3");
+    
+    publisher.subscribe(subscriber1);
+    publisher.subscribe(subscriber2);
+    publisher.subscribe(subscriber3);
+    
+    publisher.notify("Breaking news: Important announcement!");
+    
+    publisher.unsubscribe(subscriber2);
+    
+    publisher.notify("Latest updates: Weather forecast.");                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có lớp NewsPublisher đại diện cho đối tượng chủ đề. Nó có một
+            danh sách các subscribers (observers) đăng ký để nhận thông báo. NewsPublisher cung cấp
+            các phương thức để subscribe (đăng ký) và unsubscribe (hủy đăng ký) các observers, cũng
+            như phương thức notify (thông báo) để thông báo tới tất cả các subscribers khi có sự
+            thay đổi.
+            <br /><br />
+            Lớp NewsSubscriber đại diện cho các đối tượng quan sát. Mỗi subscriber (observer) có tên
+            và cung cấp phương thức update để nhận thông báo từ chủ đề.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo một NewsPublisher và ba NewsSubscriber. Sau đó, chúng ta
+            đăng ký các subscriber với publisher bằng cách sử dụng phương thức subscribe. Khi có
+            thông báo mới, publisher sẽ gọi phương thức notify và gửi thông báo đến tất cả các
+            subscribers đã đăng ký. Subscriber sẽ nhận được thông báo và in ra nội dung.
+            <br /><br />
+            Cuối cùng, chúng ta thực hiện hủy đăng ký một subscriber bằng cách sử dụng phương thức
+            unsubscribe. Khi publisher gọi phương thức notify sau khi hủy đăng ký, subscriber đã bị
+            hủy sẽ không nhận được thông báo.
+        </p>
+
+        <div class="apply">
+            <button onclick="processObserver()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

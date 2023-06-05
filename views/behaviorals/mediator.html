@@ -1,0 +1,103 @@
+<section id="mediator">
+    <div class="child-content">
+        <h2>Mediator</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Mediator trong design pattern là một mẫu hành vi, nó giúp giảm sự phụ thuộc chặt chẽ
+            giữa các đối tượng và thay thế việc giao tiếp trực tiếp giữa chúng bằng việc sử dụng một
+            đối tượng trung gian gọi là Mediator. Mediator đảm nhận vai trò trung gian để xử lý các
+            yêu cầu và giao tiếp giữa các đối tượng khác nhau.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-mediator" alt="class-diagram-mediator" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Mediator
+    class ChatRoom {
+        constructor() {
+            this.users = [];
+        }
+    
+        addUser(user) {
+            this.users.push(user);
+        }
+    
+        sendMessage(message, sender) {
+            for (const user of this.users) {
+                if (user !== sender) {
+                    user.receiveMessage(message);
+                }
+            }
+        }
+    }
+    
+    // Colleague
+    class User {
+        constructor(name, chatRoom) {
+            this.name = name;
+            this.chatRoom = chatRoom;
+            this.chatRoom.addUser(this);
+        }
+    
+        sendMessage(message) {
+            this.chatRoom.sendMessage(message, this);
+        }
+    
+        receiveMessage(message) {
+            console.log(`${this.name} received message: ${message}`);
+        }
+    }
+    
+    // Usage
+    const chatRoom = new ChatRoom();
+    
+    const user1 = new User("User 1", chatRoom);
+    const user2 = new User("User 2", chatRoom);
+    const user3 = new User("User 3", chatRoom);
+    
+    user1.sendMessage("Hello, everyone!");
+    
+    // Output:
+    // User 2 received message: Hello, everyone!
+    // User 3 received message: Hello, everyone!                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có một lớp Mediator (ChatRoom) đại diện cho một phòng chat.
+            Nó duy trì danh sách các người dùng và có thể thêm người dùng mới vào phòng chat. Phương
+            thức sendMessage() của Mediator được sử dụng để gửi tin nhắn từ một người dùng đến các
+            người dùng khác trong phòng chat.
+            <br /><br />
+            Lớp Colleague (User) đại diện cho một người dùng trong phòng chat. Mỗi người dùng được
+            tạo với tên của mình và được thêm vào phòng chat. Người dùng có thể gửi tin nhắn bằng
+            cách sử dụng phương thức sendMessage() của mình. Khi một người dùng nhận được tin nhắn,
+            phương thức receiveMessage() sẽ được gọi để in tin nhắn lên màn hình.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo một phòng chat (ChatRoom) và ba người dùng (User) và thêm
+            họ vào phòng chat. Sau đó, người dùng thứ nhất gửi một tin nhắn và tin nhắn đó sẽ được
+            chuyển đến các người dùng khác trong phòng chat thông qua Mediator (ChatRoom).
+            <br /><br />
+            Mẫu Mediator giúp tạo ra một sự giao tiếp chặt chẽ giữa các đối tượng mà không cần chúng
+            trực tiếp liên kết với nhau. Nó cung cấp một cách linh hoạt để quản lý sự tương tác giữa
+            các đối tượng trong hệ thống.
+        </p>
+
+        <div class="apply">
+            <button onclick="processMediator()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

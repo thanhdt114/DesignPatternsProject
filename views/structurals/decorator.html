@@ -1,0 +1,113 @@
+<section id="decorator">
+    <div class="child-content">
+        <h2>Decorator</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Decorator trong design pattern là một mẫu thiết kế cấu trúc cho phép chúng ta mở
+            rộng hoặc thay đổi chức năng của một đối tượng mà không làm thay đổi cấu trúc của lớp
+            gốc. Mẫu Decorator cho phép chúng ta thêm các chức năng mới vào đối tượng đã tồn tại
+            bằng cách bao bọc (wrap) nó trong một lớp Decorator.
+            <br /><br />
+            Lớp Decorator kế thừa từ lớp gốc và có cùng giao diện với lớp gốc. Lớp Decorator chứa
+            một đối tượng của lớp gốc và cung cấp một giao diện tương tự để chúng ta có thể thêm
+            chức năng mới. Lớp Decorator chuyển các yêu cầu từ khách hàng đến đối tượng gốc, nhưng
+            có thể thực hiện các thao tác bổ sung trước và sau khi chuyển tiếp yêu cầu.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-decorator" alt="class-diagram-decorator" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Giao diện chung cho thành phần cần được bổ sung chức năng
+    class Component {
+        operation() {
+            console.log("Component operation");
+        }
+    }
+    
+    // Lớp cơ bản không có chức năng bổ sung
+    class ConcreteComponent extends Component {
+        operation() {
+            console.log("ConcreteComponent operation");
+        }
+    }
+    
+    // Lớp Decorator
+    class Decorator extends Component {
+        constructor(component) {
+            super();
+            this.component = component;
+        }
+    
+        operation() {
+            this.component.operation();
+            console.log("Decorator operation");
+        }
+    }
+    
+    // Lớp Decorator cụ thể 1
+    class ConcreteDecorator1 extends Decorator {
+        operation() {
+            super.operation();
+            console.log("ConcreteDecorator1 operation");
+        }
+    }
+    
+    // Lớp Decorator cụ thể 2
+    class ConcreteDecorator2 extends Decorator {
+        operation() {
+            super.operation();
+            console.log("ConcreteDecorator2 operation");
+        }
+    }
+    
+    // Sử dụng
+    const component = new ConcreteComponent();
+    const decorator1 = new ConcreteDecorator1(component);
+    const decorator2 = new ConcreteDecorator2(decorator1);
+    
+    decorator2.operation();
+    // Output:
+    // ConcreteComponent operation
+    // Decorator operation
+    // ConcreteDecorator1 operation
+    // Decorator operation
+    // ConcreteDecorator2 operation                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có các lớp Component, ConcreteComponent, Decorator,
+            ConcreteDecorator1 và ConcreteDecorator2. Lớp Component là lớp chung cho tất cả các
+            thành phần và có một phương thức operation. Lớp ConcreteComponent là lớp cơ bản không có
+            chức năng bổ sung.
+            <br /><br />
+            Lớp Decorator là lớp chứa một thành phần gốc và thực hiện phương thức operation bằng
+            cách gọi phương thức operation của thành phần gốc và thêm các thao tác bổ sung.
+            <br /><br />
+            Lớp ConcreteDecorator1 và ConcreteDecorator2 là các lớp Decorator cụ thể, thực hiện các
+            chức năng bổ sung cụ thể của chúng và gọi các phương thức operation của các lớp
+            Decorator khác trước khi thực hiện chức năng của mình.
+            <br /><br />
+            Khi chúng ta gọi phương thức operation trên đối tượng decorator2, nó sẽ thực hiện các
+            phương thức operation của tất cả các Decorator từ trong ra ngoài, bao gồm
+            ConcreteDecorator2, ConcreteDecorator1, Decorator và ConcreteComponent.
+        </p>
+
+        <div class="apply">
+            <button onclick="processDecorator()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

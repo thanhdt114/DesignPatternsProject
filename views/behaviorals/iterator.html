@@ -1,0 +1,109 @@
+<section id="iterator">
+    <div class="child-content">
+        <h2>Iterator</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Iterator trong design pattern là một mẫu hành vi, cho phép duyệt qua các phần tử của
+            một tập hợp mà không tiết lộ cấu trúc bên trong của nó. Nó cung cấp một giao diện đồng
+            nhất để truy cập tuần tự các phần tử trong tập hợp mà không cần quan tâm đến cấu trúc dữ
+            liệu bên dưới.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-iterator" alt="class-diagram-iterator" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Iterator Interface
+    class Iterator {
+        hasNext() {
+            throw new Error("This method should be overridden.");
+        }
+    
+        next() {
+            throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Concrete Iterator
+    class ArrayIterator extends Iterator {
+        constructor(array) {
+            super();
+            this.array = array;
+            this.index = 0;
+        }
+    
+        hasNext() {
+            return this.index < this.array.length;
+        }
+    
+        next() {
+            return this.array[this.index++];
+        }
+    }
+    
+    // Aggregate Interface
+    class Aggregate {
+        createIterator() {
+            throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Concrete Aggregate
+    class ArrayAggregate extends Aggregate {
+        constructor(array) {
+            super();
+            this.array = array;
+        }
+    
+        createIterator() {
+            return new ArrayIterator(this.array);
+        }
+    }
+    
+    // Usage
+    const array = [1, 2, 3, 4, 5];
+    const aggregate = new ArrayAggregate(array);
+    const iterator = aggregate.createIterator();
+    
+    while (iterator.hasNext()) {
+        console.log(iterator.next());
+    }                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có một lớp Iterator đại diện cho giao diện chung của một
+            iterator. Lớp Concrete Iterator (ArrayIterator) cài đặt giao diện Iterator và duyệt qua
+            một mảng đã cho. Nó cung cấp các phương thức hasNext() để kiểm tra xem còn phần tử tiếp
+            theo hay không và phương thức next() để trả về phần tử tiếp theo trong mảng.
+            <br /><br />
+            Lớp Aggregate đại diện cho giao diện chung của một tập hợp. Lớp Concrete Aggregate
+            (ArrayAggregate) cài đặt giao diện Aggregate và tạo một iterator cho một mảng đã cho
+            bằng cách triển khai phương thức createIterator().
+            <br /><br />
+            Trong phần Usage, chúng ta tạo một mảng và sử dụng ArrayAggregate để tạo một iterator
+            cho mảng đó. Sau đó, chúng ta sử dụng iterator để duyệt qua các phần tử trong mảng và in
+            chúng ra màn hình.
+            <br /><br />
+            Mẫu Iterator giúp chúng ta tách biệt việc duyệt qua các phần tử của một tập hợp với cấu
+            trúc dữ liệu bên dưới. Điều này giúp chúng ta có thể thay đổi cấu trúc dữ liệu mà không
+            ảnh hưởng đến cách duyệt qua các phần tử, và ngược lại.
+        </p>
+
+        <div class="apply">
+            <button onclick="processIterator()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

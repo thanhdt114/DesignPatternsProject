@@ -1,0 +1,98 @@
+<section id="facade">
+    <div class="child-content">
+        <h2>Facade</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Facade trong design pattern là một mẫu thiết kế cấu trúc, cung cấp một giao diện đơn
+            giản và thân thiện để tương tác với một hệ thống phức tạp. Mục tiêu của mẫu Facade là ẩn
+            đi sự phức tạp bên trong và cung cấp một giao diện đơn giản và rõ ràng cho việc sử dụng
+            hệ thống.
+            <br /><br />
+            Một lớp Facade được tạo ra để cung cấp một giao diện thống nhất và thuận tiện cho việc
+            sử dụng các thành phần của hệ thống. Lớp Facade này gắn kết và quản lý các thành phần
+            bên trong hệ thống và cung cấp các phương thức gọi để thực hiện các chức năng mong muốn.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-facade" alt="class-diagram-facade" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Subsystem 1
+    class Subsystem1 {
+        operation1() {
+            console.log("Subsystem1 operation1");
+        }
+    
+        operation2() {
+            console.log("Subsystem1 operation2");
+        }
+    }
+    
+    // Subsystem 2
+    class Subsystem2 {
+        operation1() {
+            console.log("Subsystem2 operation1");
+        }
+    
+        operation2() {
+            console.log("Subsystem2 operation2");
+        }
+    }
+    
+    // Facade
+    class Facade {
+        constructor(subsystem1, subsystem2) {
+            this.subsystem1 = subsystem1;
+            this.subsystem2 = subsystem2;
+        }
+    
+        operation() {
+            this.subsystem1.operation1();
+            this.subsystem2.operation1();
+            this.subsystem1.operation2();
+            this.subsystem2.operation2();
+        }
+    }
+    
+    // Usage
+    const subsystem1 = new Subsystem1();
+    const subsystem2 = new Subsystem2();
+    const facade = new Facade(subsystem1, subsystem2);
+    
+    facade.operation();
+    // Output:
+    // Subsystem1 operation1
+    // Subsystem2 operation1
+    // Subsystem1 operation2
+    // Subsystem2 operation2                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có hai Subsystem là Subsystem1 và Subsystem2, mỗi Subsystem
+            có một số phương thức hoạt động khác nhau.
+            <br /><br />
+            Lớp Facade là lớp giao diện đơn giản và thuận tiện để tương tác với hệ thống. Nó gắn kết
+            các Subsystem bên trong và cung cấp một phương thức operation để thực hiện các hoạt động
+            mong muốn.
+            <br /><br />
+            Khi chúng ta gọi phương thức operation trên đối tượng Facade, nó sẽ gọi các phương thức
+            tương ứng trên các Subsystem bên trong một cách ẩn danh và thuận tiện, cung cấp cho
+            chúng ta một giao diện thống nhất để sử dụng hệ thống.
+        </p>
+
+        <div class="apply">
+            <button onclick="processFacade()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result"></div>
+    </div>
+</section>

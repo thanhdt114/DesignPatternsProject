@@ -1,0 +1,120 @@
+<section id="bridge">
+    <div class="child-content">
+        <h2>Bridge</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Bridge trong design pattern là một mẫu thiết kế cấu trúc cho phép tách biệt các
+            thành phần giao diện (abstraction) và các thành phần cài đặt (implementation) sao cho
+            chúng có thể thay đổi độc lập nhau. Mẫu Bridge giúp giảm sự ràng buộc giữa các lớp và
+            cho phép chúng ta thay đổi hoặc mở rộng giao diện và cài đặt một cách độc lập.
+            <br /><br />
+            Một ví dụ phổ biến của mẫu Bridge là khi chúng ta có một hệ thống có nhiều lớp giao diện
+            và nhiều lớp cài đặt, và chúng ta muốn kết nối các lớp giao diện với các lớp cài đặt một
+            cách linh hoạt. Thay vì kết nối trực tiếp các lớp giao diện với các lớp cài đặt, chúng
+            ta sử dụng mẫu Bridge để tạo một sự tách rời giữa chúng thông qua một lớp trung gian gọi
+            là Abstraction và một lớp khác là Implementation.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-bridge" alt="class-diagram-bridge" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Giao diện gốc
+    class Shape {
+        constructor(color) {
+            this.color = color;
+        }
+    
+        draw() {
+            throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Giao diện mở rộng cho các hình vuông
+    class Square extends Shape {
+        draw() {
+            console.log(`Drawing a square with color ${this.color}.`);
+        }
+    }
+    
+    // Giao diện mở rộng cho các hình tròn
+    class Circle extends Shape {
+        draw() {
+            console.log(`Drawing a circle with color ${this.color}.`);
+        }
+    }
+    
+    // Giao diện độc lập cho các màu sắc
+    class Color {
+        constructor(name) {
+            this.name = name;
+        }
+    }
+    
+    // Giao diện màu đỏ
+    class RedColor extends Color {
+        constructor() {
+            super("red");
+        }
+    }
+    
+    // Giao diện màu xanh
+    class BlueColor extends Color {
+        constructor() {
+            super("blue");
+        }
+    }
+    
+    // Bridge kết nối giao diện hình và giao diện màu
+    class ShapeColorBridge {
+        constructor(shape, color) {
+            this.shape = shape;
+            this.color = color;
+        }
+    
+        draw() {
+            this.shape.draw();
+            console.log(`Coloring the shape with ${this.color.name} color.`);
+        }
+    }
+    
+    // Sử dụng
+    const redSquare = new ShapeColorBridge(new Square(), new RedColor());
+    redSquare.draw();
+    // Output: "Drawing a square with color red." và "Coloring the shape with red color."
+    
+    const blueCircle = new ShapeColorBridge(new Circle(), new BlueColor());
+    blueCircle.draw();
+    // Output: "Drawing a circle with color blue." và "Coloring the shape with blue color."                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có các giao diện Shape và Color đại diện cho hình và màu sắc
+            tương ứng. Các lớp Square và Circle là các lớp cài đặt của giao diện Shape. Các lớp
+            RedColor và BlueColor là các lớp cài đặt của giao diện Color. Cuối cùng, lớp
+            ShapeColorBridge kết nối giao diện Shape và giao diện Color để vẽ hình với màu sắc tương
+            ứng.
+            <br /><br />
+            Mẫu Bridge cho phép chúng ta thay đổi giao diện Shape và giao diện Color một cách độc
+            lập nhau, mở rộng và bổ sung các lớp mới mà không ảnh hưởng đến các lớp hiện có.
+        </p>
+
+        <div class="apply">
+            <button class="btn-css" onclick="drawRedSquare()">Draw Red Square</button> <br>
+            <button class="btn-css" onclick="drawBlueCircle()">Draw Blue Circle</button> <br>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

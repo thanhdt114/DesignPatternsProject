@@ -1,0 +1,97 @@
+<section id="strategy">
+    <div class="child-content">
+        <h2>Strategy</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Strategy trong design pattern là một mẫu hành vi, nó cho phép đối tượng thay đổi
+            thuật toán của mình trong quá trình chạy mà không ảnh hưởng đến ngữ cảnh sử dụng.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-strategy" alt="class-diagram-strategy" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Context
+    class PaymentProcessor {
+        constructor(paymentStrategy) {
+            this.paymentStrategy = paymentStrategy;
+        }
+    
+        processPayment(amount) {
+            this.paymentStrategy.pay(amount);
+        }
+    
+        setPaymentStrategy(paymentStrategy) {
+            this.paymentStrategy = paymentStrategy;
+        }
+    }
+    
+    // Strategy
+    class PaymentStrategy {
+        pay(amount) {
+            throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Concrete Strategies
+    class CreditCardPaymentStrategy extends PaymentStrategy {
+        pay(amount) {
+            console.log(`Paying $${amount} with credit card.`);
+        }
+    }
+    
+    class PayPalPaymentStrategy extends PaymentStrategy {
+        pay(amount) {
+            console.log(`Paying $${amount} with PayPal.`);
+        }
+    }
+    
+    // Usage
+    const paymentProcessor = new PaymentProcessor(new CreditCardPaymentStrategy());
+    paymentProcessor.processPayment(100); // Output: Paying $100 with credit card.
+    
+    paymentProcessor.setPaymentStrategy(new PayPalPaymentStrategy());
+    paymentProcessor.processPayment(50); // Output: Paying $50 with PayPal.                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có lớp PaymentProcessor đại diện cho Context (ngữ cảnh).
+            PaymentProcessor nhận một đối tượng PaymentStrategy làm tham số trong constructor. Khi
+            gọi phương thức processPayment, PaymentProcessor gọi phương thức pay trên đối tượng
+            PaymentStrategy để xử lý thanh toán.
+            <br /><br />
+            Lớp PaymentStrategy đại diện cho Strategy (chiến lược). Nó chứa một phương thức pay
+            chung mà các lớp con phải triển khai.
+            <br /><br />
+            Các lớp con (CreditCardPaymentStrategy, PayPalPaymentStrategy) đại diện cho các chiến
+            lược cụ thể và triển khai phương thức pay theo cách tương ứng.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo một đối tượng PaymentProcessor ban đầu với
+            CreditCardPaymentStrategy là chiến lược thanh toán. Sau đó, chúng ta gọi phương thức
+            processPayment và kết quả được in ra màn hình tương ứng với chiến lược thanh toán. Sau
+            đó, chúng ta thay đổi chiến lược thanh toán bằng cách gọi setPaymentStrategy và tiếp tục
+            gọi processPayment với kết quả tương ứng.
+            <br /><br />
+            Mẫu Strategy cho phép chúng ta linh hoạt thay đổi chiến lược thanh toán mà không ảnh
+            hưởng đến lớp PaymentProcessor, đảm bảo tính mở rộng và dễ dàng thay đổi các thuật toán
+            khác nhau mà không cần thay đổi cấu trúc của lớp chính.
+        </p>
+
+        <div class="apply">
+            <button onclick="processStrategy()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

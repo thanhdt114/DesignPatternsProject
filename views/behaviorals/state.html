@@ -1,0 +1,152 @@
+<section id="state">
+    <div class="child-content">
+        <h2>State</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu State trong design pattern là một mẫu hành vi, nó cho phép đối tượng thay đổi hành
+            vi của mình khi trạng thái nội bộ của nó thay đổi. Nó giúp tách biệt logic xử lý hành vi
+            vào các lớp trạng thái riêng biệt và cho phép đối tượng chuyển đổi giữa các trạng thái
+            một cách linh hoạt.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-state" alt="class-diagram-state" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Context
+    class Player {
+        constructor() {
+            this.state = new IdleState(this);
+        }
+    
+        setState(state) {
+            this.state = state;
+        }
+    
+        play() {
+            this.state.play();
+        }
+    
+        pause() {
+            this.state.pause();
+        }
+    
+        stop() {
+            this.state.stop();
+        }
+    }
+    
+    // State
+    class PlayerState {
+        constructor(player) {
+            this.player = player;
+        }
+    
+        play() {
+            throw new Error("This method should be overridden.");
+        }
+    
+        pause() {
+            throw new Error("This method should be overridden.");
+        }
+    
+        stop() {
+            throw new Error("This method should be overridden.");
+        }
+    }
+    
+    // Concrete States
+    class IdleState extends PlayerState {
+        play() {
+            console.log("Playing music.");
+            this.player.setState(new PlayingState(this.player));
+        }
+    
+        pause() {
+            console.log("Player is already idle.");
+        }
+    
+        stop() {
+            console.log("Player is already idle.");
+        }
+    }
+    
+    class PlayingState extends PlayerState {
+        play() {
+            console.log("Player is already playing.");
+        }
+    
+        pause() {
+            console.log("Pausing music.");
+            this.player.setState(new PausedState(this.player));
+        }
+    
+        stop() {
+            console.log("Stopping music.");
+            this.player.setState(new IdleState(this.player));
+        }
+    }
+    
+    class PausedState extends PlayerState {
+        play() {
+            console.log("Resuming music.");
+            this.player.setState(new PlayingState(this.player));
+        }
+    
+        pause() {
+            console.log("Player is already paused.");
+        }
+    
+        stop() {
+            console.log("Stopping music.");
+            this.player.setState(new IdleState(this.player));
+        }
+    }
+    
+    // Usage
+    const player = new Player();
+    
+    player.play(); // Output: Playing music.
+    player.pause(); // Output: Pausing music.
+    player.play(); // Output: Resuming music.
+    player.stop(); // Output: Stopping music.
+    player.play(); // Output: Playing music.
+    player.stop(); // Output: Stopping music.               
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có lớp Player đại diện cho Context (ngữ cảnh). Player có một
+            trạng thái nội bộ (state) ban đầu là IdleState. Player cung cấp các phương thức để
+            chuyển đổi trạng thái và gọi phương thức của trạng thái hiện tại.
+            <br /><br />
+            Lớp PlayerState đại diện cho State (trạng thái). Nó chứa một tham chiếu đến đối tượng
+            Player và cung cấp các phương thức chung cho tất cả các trạng thái con.
+            <br /><br />
+            Các lớp con (IdleState, PlayingState, PausedState) đại diện cho các trạng thái cụ thể và
+            triển khai các phương thức tương ứng. Khi gọi phương thức play, pause hoặc stop trên đối
+            tượng Player, phương thức tương ứng sẽ được gọi trên trạng thái hiện tại và trạng thái
+            có thể chuyển đổi thành trạng thái mới.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo một đối tượng Player và thực hiện một loạt các hành động
+            như play, pause, stop. Kết quả được in ra màn hình tương ứng với trạng thái và hành động
+            của Player.
+        </p>
+
+        <div class="apply">
+            <button onclick="processState()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

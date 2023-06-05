@@ -1,0 +1,74 @@
+<section id="singleton">
+    <div class="child-content">
+        <h2>Singleton</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Singleton trong design pattern là một mẫu thiết kế tạo ra một lớp chỉ có thể có một
+            đối tượng duy nhất và cung cấp một điểm truy cập toàn cục để truy cập đối tượng đó.
+            <br /><br />
+            Mục đích chính của mẫu Singleton là đảm bảo rằng chỉ có một phiên bản duy nhất của một
+            lớp được tạo ra và cung cấp một cách dễ dàng để truy cập đối tượng này từ bất kỳ đâu
+            trong ứng dụng.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-singleton" alt="class-diagram-singleton" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    class Singleton {
+        constructor() {
+            if (!Singleton.instance) {
+                Singleton.instance = this;
+            }
+    
+            return Singleton.instance;
+        }
+    
+        sayHello() {
+            console.log("Hello, I am a Singleton object.");
+        }
+    }
+    
+    // Sử dụng
+    const singleton1 = new Singleton();
+    const singleton2 = new Singleton();
+    
+    console.log(singleton1 === singleton2); // true
+    
+    singleton1.sayHello(); // "Hello, I am a Singleton object."
+    singleton2.sayHello(); // "Hello, I am a Singleton object."
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta tạo một lớp Singleton và đảm bảo rằng chỉ có một phiên bản
+            duy nhất của lớp này được tạo ra. Khi chúng ta tạo ra đối tượng Singleton thông qua việc
+            khởi tạo (new Singleton()), nếu đã có một phiên bản Singleton trước đó, chúng ta chỉ trả
+            về phiên bản đó chứ không tạo ra một đối tượng mới.
+            <br /><br />
+            Khi chúng ta truy cập vào các đối tượng Singleton bằng cách gọi phương thức sayHello(),
+            chúng ta sẽ thấy rằng chúng trả về cùng một đối tượng duy nhất.
+            <br /><br />
+            Mẫu Singleton hữu ích trong nhiều tình huống, đặc biệt là khi chúng ta cần quản lý các
+            tài nguyên chia sẻ hoặc các thành phần không thể được tạo lại nhiều lần.
+        </p>
+
+        <div class="apply">
+            <button class="btn-css" onclick="createSingleton1()">Singleton1</button> <br>
+            <button onclick="createSingleton2()">Singleton2</button> <br>
+            Singleton1 === Singleton2 <button onclick="comparisonSingleton()">Result</button> <br>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

@@ -1,0 +1,122 @@
+<section id="memento">
+    <div class="child-content">
+        <h2>Memento</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Memento trong design pattern là một mẫu hành vi, nó cho phép lưu trữ và khôi phục
+            trạng thái của một đối tượng mà không tiết lộ chi tiết bên trong của nó. Mẫu này cho
+            phép lưu lại trạng thái của một đối tượng vào một đối tượng Memento, và sau đó khôi phục
+            lại trạng thái đó khi cần thiết.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-memento" alt="class-diagram-memento" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Originator
+    class Editor {
+        constructor() {
+            this.content = "";
+        }
+    
+        type(text) {
+            this.content += text;
+        }
+    
+        getContent() {
+            return this.content;
+        }
+    
+        save() {
+            return new Memento(this.content);
+        }
+    
+        restore(memento) {
+            this.content = memento.getState();
+        }
+    }
+    
+    // Memento
+    class Memento {
+        constructor(content) {
+            this.state = content;
+        }
+    
+        getState() {
+            return this.state;
+        }
+    }
+    
+    // Caretaker
+    class History {
+        constructor() {
+            this.history = [];
+        }
+    
+        push(memento) {
+            this.history.push(memento);
+        }
+    
+        pop() {
+            return this.history.pop();
+        }
+    }
+    
+    // Usage
+    const editor = new Editor();
+    const history = new History();
+    
+    editor.type("Hello");
+    editor.type(" World");
+    
+    // Save the state
+    history.push(editor.save());
+    
+    editor.type("!");
+    
+    console.log(editor.getContent()); // Output: Hello World!
+    
+    // Restore the state
+    const memento = history.pop();
+    editor.restore(memento);
+    
+    console.log(editor.getContent()); // Output: Hello World                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có một lớp Originator (Editor) đại diện cho đối tượng cần lưu
+            trạng thái. Editor có thể ghi lại nội dung và trả về nội dung hiện tại. Nó cũng có thể
+            tạo ra một Memento để lưu trữ trạng thái hiện tại của nó và khôi phục trạng thái từ một
+            Memento.
+            <br /><br />
+            Lớp Memento đại diện cho một trạng thái của Editor. Nó lưu trữ nội dung đã được sao lưu
+            và cung cấp phương thức để truy cập trạng thái đó.
+            <br /><br />
+            Lớp Caretaker (History) giữ một danh sách các Memento đã được lưu trữ. Nó có thể đẩy một
+            Memento mới vào danh sách và trích xuất Memento cuối cùng từ danh sách.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo một Editor và một History. Editor được sử dụng để ghi lại
+            và khôi phục nội dung. Trạng thái ban đầu của Editor là "Hello World". Sau đó, chúng ta
+            ghi thêm dấu chấm than vào Editor và sau đó khôi phục lại trạng thái trước đó từ Memento
+            đã lưu trữ. Cuối cùng, chúng ta in ra nội dung của Editor và kết quả sẽ là "Hello
+            World".
+        </p>
+
+        <div class="apply">
+            <button onclick="processMemento()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result">
+            
+        </div>
+    </div>
+</section>

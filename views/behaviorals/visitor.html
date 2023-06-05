@@ -1,0 +1,106 @@
+<section id="visitor">
+    <div class="child-content">
+        <h2>Visitor</h2>
+        <h3>Định nghĩa</h3>
+        <p>
+            Mẫu Visitor là một mẫu hành vi (behavioral pattern) trong design pattern, cho phép bạn
+            thực hiện các thao tác (operations) trên các đối tượng của một cấu trúc đối tượng
+            (object structure) mà không cần thay đổi cấu trúc đối tượng đó.
+        </p>
+
+        <h3>Class diagram</h3>
+        <img src="creationals/image/class-diagram-visitor" alt="class-diagram-visitor" />
+
+        <h3>Code ví dụ</h3>
+        <pre class="code-container">
+            <code>
+    // Visitor
+    class Visitor {
+        visitElementA(element) {
+            console.log("Visitor is visiting ElementA");
+            // Thực hiện các thao tác trên ElementA
+        }
+    
+        visitElementB(element) {
+            console.log("Visitor is visiting ElementB");
+            // Thực hiện các thao tác trên ElementB
+        }
+    }
+    
+    // ElementA
+    class ElementA {
+        accept(visitor) {
+            visitor.visitElementA(this);
+        }
+    }
+    
+    // ElementB
+    class ElementB {
+        accept(visitor) {
+            visitor.visitElementB(this);
+        }
+    }
+    
+    // Object Structure
+    class ObjectStructure {
+        elements = [];
+    
+        addElement(element) {
+            this.elements.push(element);
+        }
+    
+        accept(visitor) {
+            for (const element of this.elements) {
+                element.accept(visitor);
+            }
+        }
+    }
+    
+    // Usage
+    const visitor = new Visitor();
+    const elementA = new ElementA();
+    const elementB = new ElementB();
+    
+    const objectStructure = new ObjectStructure();
+    objectStructure.addElement(elementA);
+    objectStructure.addElement(elementB);
+    
+    objectStructure.accept(visitor);                
+            </code>
+        </pre>
+
+        <h3>Giải thích code</h3>
+        <p>
+            Trong ví dụ trên, chúng ta có lớp Visitor, đại diện cho visitor, được sử dụng để thực
+            hiện các thao tác trên các đối tượng trong cấu trúc đối tượng.
+            <br /><br />
+            Các lớp ElementA và ElementB đại diện cho các đối tượng trong cấu trúc đối tượng. Mỗi
+            lớp đều có phương thức accept để chấp nhận một visitor và gọi phương thức visit tương
+            ứng của visitor trên chính nó.
+            <br /><br />
+            Lớp ObjectStructure đại diện cho cấu trúc đối tượng, có chứa danh sách các đối tượng.
+            Phương thức accept trên ObjectStructure được sử dụng để chấp nhận một visitor và gọi
+            phương thức accept trên tất cả các đối tượng trong danh sách.
+            <br /><br />
+            Trong phần Usage, chúng ta tạo một visitor, các đối tượng ElementA và ElementB, và một
+            cấu trúc đối tượng ObjectStructure. Sau đó, chúng ta gọi phương thức accept trên
+            ObjectStructure và truyền visitor vào để thực hiện các thao tác trên các đối tượng trong
+            cấu trúc đối tượng.
+            <br /><br />
+            Mẫu Visitor cho phép bạn thêm các thao tác mới cho các đối tượng mà không cần thay đổi
+            cấu trúc đối tượng. Bạn có thể tạo ra các visitor khác nhau để thực hiện các thao tác
+            khác nhau trên các đối tượng cùng một cấu trúc đối tượng.
+        </p>
+
+        <div class="apply">
+            <button onclick="processVisitor()">Create</button>
+            <button onclick="clearState()">Clear State</button>
+        </div>
+
+        <div class="state">
+            <p id="now-state">State: empty</p>
+        </div>
+
+        <div class="result"></div>
+    </div>
+</section>
