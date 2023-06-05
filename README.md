@@ -1,14 +1,15 @@
 # DesignPatternsProject
 
+# Tutorial setup
 Clone project from: https://github.com/thanhdt114/DesignPatternsProject.git
+<!-- ad -->
+- Step 1: Open terminal and enter: npm i 
+- Step 2: In terminal, enter: npm run dev
 
-Step 1: Open terminal and enter: npm i
-Step 2: In terminal, enter: npm run dev
 
-
-Content file .env
+## Content file .env
 PORT = 3000
 
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=secret
+DB_HOST=localhost <br>
+DB_USER=root <br>
+DB_PASSWORD=secret <br>
